@@ -1,0 +1,8 @@
+node_modules
+package.json
+
+# Ignore files for package managers
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+yalc.lock

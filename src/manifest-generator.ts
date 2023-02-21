@@ -23,8 +23,8 @@ export async function produceManifest(genConfig: GenManifestConfig, webConfig: W
 		theme_color: webConfig.themeColor,
 		icons: [
 			// the icon generator only generate 2 variants
-			{ src: `${relativePath}/${prefix}-192.png`, type: 'image/png', sizes: '192x192' },
-			{ src: `${relativePath}/${prefix}-512.png`, type: 'image/png', sizes: '512x512' },
+			{ src: `${prefix}-192.png`, type: 'image/png', sizes: '192x192' },
+			{ src: `${prefix}-512.png`, type: 'image/png', sizes: '512x512' },
 		],
 	};
 	if (webConfig.maskableIcons) {

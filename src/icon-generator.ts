@@ -3,7 +3,6 @@ import path from 'path';
 import sharp, { Sharp } from 'sharp';
 import toIco from 'to-ico';
 import { optimize as optimizeSvg } from 'svgo';
-import isSvg from 'is-svg';
 import { GenIconConfig } from './types';
 
 type IconConfig = {
@@ -66,16 +65,13 @@ function getIcoBuffer(rawBuffer: Buffer, cfg: IconConfig): Promise<Buffer> {
 		.then((buf) => toIco(buf, { resize: true }));
 }
 
-function getSvgBuffer(rawBuffer: Buffer): Buffer {
-	const optimizedSvg = optimizeSvg(rawBuffer, {
+function getSvgBuffer(str: string): string {
+	const optimizedSvg = optimizeSvg(str, {
 		multipass: true,
 	});
 
-	if (optimizedSvg.error !== undefined) {
-		throw Error(optimizedSvg.error);
-	}
 
-	return Buffer.from(optimizedSvg.data);
+	return optimizedSvg.data;
 }
 
 function getIconBuffer(rawBuffer: Buffer, cfg: IconConfig): Buffer | Promise<Buffer> {
@@ -83,7 +79,7 @@ function getIconBuffer(rawBuffer: Buffer, cfg: IconConfig): Buffer | Promise<Buf
 	const iconExtension = path.extname(iconName);
 	switch (iconExtension) {
 		case '.svg':
-			return getSvgBuffer(rawBuffer);
+			return Buffer.from(getSvgBuffer(rawBuffer.toString('utf-8')), 'utf-8');
 		case '.png':
 			return getPngBuffer(rawBuffer, cfg);
 		case '.ico':
@@ -115,7 +111,8 @@ export async function produceIcons(genConfig: GenIconConfig) {
 	}
 
 	const rawIconBuf = await fs.readFile(inputFilePath);
-	const isSvgBuf = isSvg(rawIconBuf);
+	
+	const isSvgBuf = inputFilePath.endsWith('.svg');
 
 	let iconConfigs = baseIconConfigs.map((cfg) => {
 		const mappedCfg = { ...cfg };

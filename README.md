@@ -4,7 +4,7 @@ Adapted from [favgen](https://www.npmjs.com/package/favgen) to include more flex
 
 This is a simple CLI tool to generate an optimized set of favicons and a web manifest from a single input file and a web-config file. Icons are optimized in terms of both size and quantity (nowadays you don't need that many of them). They are produced according to [this article](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs) which served as an inspiration for the tool.
 
-Use it like this: `npx favgen /path/to/input /path/to/web-config.json -o /path/to/output`.
+Use it like this: `npx pwag /path/to/input /path/to/web-config.json -o /path/to/output`.
 
 WebConfig type is found in [src/types.ts](src/types.ts#L1-16)
 

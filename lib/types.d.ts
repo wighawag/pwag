@@ -4,7 +4,7 @@ export type WebConfig = {
     description: string;
     display: string;
     canonicalURL: string;
-    ENSName: string;
+    ENSName?: string;
     themeColor: string;
     appleStatusBarStyle: string;
     icon: string;
@@ -42,3 +42,8 @@ export type GenIconConfig = GenManifestConfig & {
     paletteSize?: number;
     include16?: boolean;
 };
+export interface InjectOptions {
+    baseUrl?: string;
+    assetsPrefix?: string;
+    htmlOutput?: string;
+}
